@@ -1,3 +1,7 @@
+import express, {Request, Response} from 'express';
+import userRouter from './routers/user-router';
+import squareRouter from './routers/square-router';
+
 // Setting up a new NPM Express project
 // 1. npm init
 // 2. npm install express
@@ -6,7 +10,7 @@
 // 5. (install any other necessary dependencies)
 // 6. code . (opens VS code at the current directory)
 
-const express = require('express');
+
 // import (export member) from 'package-name'
                                // non-default imports must be in { nonDefaultExport }
 
@@ -28,24 +32,13 @@ const port = 3000;
 const app = express();
 
 // Middleware
-app.use('', (request, response, next) => {
+app.use('', (request: Request, response: Response, next) => {
     next();
 });
 
-const userRouter = express.Router();
-
-// For most things, get is the default request sent
-userRouter.get('', (request, response, next) => {
-    response.json({message: 'Getting user'});
-    next();
-});
-
-userRouter.post('', (request, response, next) => {
-    response.json({message: 'creating user'});
-    next();
-})
 
 app.use('/users', userRouter);
+app.use('/square', squareRouter);
 
 app.listen(port, () => {
     console.log('Express listening on port ' + port);
